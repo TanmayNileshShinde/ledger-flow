@@ -1,5 +1,4 @@
-import React from 'react';
-import { Wallet, PieChart, ShieldCheck, ArrowRight, Sparkles, LineChart, Layers } from 'lucide-react';
+import { Wallet, ShieldCheck, ArrowRight, Sparkles, LineChart, Layers } from 'lucide-react';
 import { signInWithPopup } from 'firebase/auth';
 import { auth, googleProvider } from '../lib/firebase';
 import { useNavigate } from 'react-router-dom';
