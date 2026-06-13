@@ -76,7 +76,7 @@ export default function Dashboard() {
               <Wallet size={14} /> Global Overview
             </div>
             <h2 className="text-4xl font-extrabold text-slate-900 tracking-tight">Welcome back.</h2>
-            <p className="text-slate-500 mt-2 text-lg">You are actively tracking <span className="font-semibold text-slate-700">{projects.length} ledgers</span> across your workspaces.</p>
+            <p className="text-slate-500 mt-2 text-lg">You are actively tracking <span className="font-semibold text-slate-700">{projects.length} {projects.length === 1 ? 'ledger' : 'ledgers'}</span> across your workspaces.</p>
           </div>
           <Link 
             to="/new-project" 
