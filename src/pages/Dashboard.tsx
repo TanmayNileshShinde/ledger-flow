@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { TrendingUp, TrendingDown, Activity, ArrowRight, FolderPlus, Clock, ChevronRight, Wallet } from 'lucide-react';
+import { TrendingUp, TrendingDown, Activity, FolderPlus, Clock, ChevronRight, Wallet } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { collection, query, where, onSnapshot } from 'firebase/firestore';
 import { auth, db } from '../lib/firebase';
@@ -52,7 +52,6 @@ export default function Dashboard() {
   const totalCapital = projects.reduce((sum, p) => sum + p.totalCapital, 0);
   const totalPaid = projects.reduce((sum, p) => sum + p.totalPaid, 0);
   const outstanding = totalCapital - totalPaid;
-  const globalProgress = totalCapital > 0 ? (totalPaid / totalCapital) * 100 : 0;
 
   if (loading) {
     return (
