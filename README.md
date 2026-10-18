@@ -2,12 +2,13 @@
 
 **Financial clarity for your most complex projects.**
 
-LedgerFlow is a secure, real-time financial tracking dashboard designed to manage heavy installments, fluid freelance contracts, and complex milestone-based payments. It partitions financial data into isolated workspaces with dynamic tracking and real-time aggregate computation.
-
-![LedgerFlow Architecture](https://img.shields.io/badge/Architecture-v2.0-blue)
+[![GitHub stars](https://img.shields.io/github/stars/TanmayNileshShinde/ledger-flow.svg?style=flat&color=yellow)](https://github.com/TanmayNileshShinde/ledger-flow/stargazers)
+[![Live Demo](https://img.shields.io/badge/demo-online-green.svg)](https://ledger-flow.vercel.app)
 ![React](https://img.shields.io/badge/React-18-blue)
 ![TypeScript](https://img.shields.io/badge/TypeScript-Strict-blue)
 ![Firebase](https://img.shields.io/badge/Firebase-v10-yellow)
+
+LedgerFlow is a secure, real-time financial tracking dashboard designed to manage heavy installments, fluid freelance contracts, and complex milestone-based payments. It partitions financial data into isolated workspaces with dynamic tracking and real-time aggregate computation.
 
 ---
 
@@ -38,9 +39,9 @@ LedgerFlow is a secure, real-time financial tracking dashboard designed to manag
 Follow these instructions to run the project securely on your local machine.
 
 ### 1. Clone the Repository
-``` 
-   git clone https://github.com/YOUR_USERNAME/ledger-flow.git 
-   cd ledger-flow
+```bash
+git clone https://github.com/TanmayNileshShinde/ledger-flow.git
+cd ledger-flow
 ```
 
 ### 2. Install Dependencies
