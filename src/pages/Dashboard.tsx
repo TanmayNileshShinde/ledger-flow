@@ -17,7 +17,7 @@ export default function Dashboard() {
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
 
-  // Keep your exact Firebase logic
+  // firebase
   useEffect(() => {
     let unsubscribeSnapshot: () => void;
 

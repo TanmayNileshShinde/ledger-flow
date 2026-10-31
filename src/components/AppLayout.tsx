@@ -17,7 +17,7 @@ export default function AppLayout() {
   const [loading, setLoading] = useState(true);
   const [projects, setProjects] = useState<ProjectLink[]>([]);
 
-  // 100% Untouched Firebase Logic
+  // firebase logic
   useEffect(() => {
     let unsubscribeSnapshot: () => void;
 
@@ -50,7 +50,7 @@ export default function AppLayout() {
     navigate('/');
   };
 
-  // Upgraded Active State Styling
+  // active styling
   const isActive = (path: string) => {
     return location.pathname === path 
       ? 'bg-blue-600/10 text-blue-400 border border-blue-500/20 shadow-[inset_0_0_20px_rgba(37,99,235,0.05)]' 

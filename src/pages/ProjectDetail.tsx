@@ -36,12 +36,12 @@ export default function ProjectDetail() {
   const [newRowTotal, setNewRowTotal] = useState('');
   const [isAdding, setIsAdding] = useState(false);
 
-  // Search & Filter state
+  // filter state
   const [searchQuery, setSearchQuery] = useState('');
   const [filterStatus, setFilterStatus] = useState<FilterStatus>('all');
   const [exportFeedback, setExportFeedback] = useState<string | null>(null);
 
-  // 1. Fetch Project Details and Rows
+  // fetch project
   useEffect(() => {
     if (!id) return;
     const unsubProject = onSnapshot(doc(db, 'projects', id), (docSnap) => {
@@ -59,14 +59,14 @@ export default function ProjectDetail() {
     return () => { unsubProject(); unsubRows(); };
   }, [id]);
 
-  // Dynamic Calculations
+  // totals calc
   const projectTotal = rows.reduce((sum, r) => sum + r.totalAmount, 0);
   const projectPaid = rows.reduce((sum, r) => sum + r.paidAmount, 0);
   const remainingBalance = projectTotal - projectPaid;
   const progressPercentage = projectTotal > 0 ? Math.min((projectPaid / projectTotal) * 100, 100) : 0;
   const isComplete = progressPercentage === 100 && projectTotal > 0;
 
-  // Filtered Rows
+  // filter rows
   const filteredRows = useMemo(() => {
     return rows.filter(row => {
       const matchesSearch = row.name.toLowerCase().includes(searchQuery.toLowerCase());
@@ -81,7 +81,7 @@ export default function ProjectDetail() {
   const settledCount = rows.filter(r => r.isDone || r.paidAmount === r.totalAmount).length;
   const pendingCount = rows.length - settledCount;
 
-  // 2. Sync totals to the Master Dashboard
+  // sync totals
   const syncParentProjectTotals = async (currentRows: Row[]) => {
     if (!id) return;
     const totalCap = currentRows.reduce((sum, r) => sum + r.totalAmount, 0);
@@ -89,7 +89,7 @@ export default function ProjectDetail() {
     await updateDoc(doc(db, 'projects', id), { totalCapital: totalCap, totalPaid: totalPd });
   };
 
-  // 3. Add a new milestone
+  // add milestone
   const handleAddRow = async () => {
     if (!id || !newRowName.trim() || !newRowTotal) return;
     setIsAdding(true);
@@ -109,7 +109,7 @@ export default function ProjectDetail() {
     setIsAdding(false);
   };
 
-  // 4. Update the paid amount
+  // update paid
   const handlePaidChange = (rowId: string, val: string) => {
     let numVal = Number(val) || 0;
     setRows(prev => prev.map(row => {
@@ -123,7 +123,7 @@ export default function ProjectDetail() {
     }));
   };
 
-  // 5. Save the updated amount on blur
+  // save amount
   const handlePaidBlur = async (rowId: string) => {
     if (!id) return;
     const updatedRow = rows.find(r => r.id === rowId);
@@ -134,7 +134,7 @@ export default function ProjectDetail() {
     await syncParentProjectTotals(rows);
   };
 
-  // 6. Toggle the Checkbox
+  // toggle milestone
   const toggleDone = async (rowId: string) => {
     if (!id) return;
     const rowToUpdate = rows.find(r => r.id === rowId);
@@ -145,7 +145,7 @@ export default function ProjectDetail() {
     await updateDoc(doc(db, 'projects', id, 'milestones', rowId), { isDone: newStatus });
   };
 
-  // 7. Export Ledger to CSV
+  // export csv
   const exportToCSV = () => {
     if (rows.length === 0) return;
     const safeProjectName = projectName.replace(/[^a-zA-Z0-9_-]/g, '_');
@@ -167,7 +167,7 @@ export default function ProjectDetail() {
       ].join(',');
     });
 
-    // Add summary row at bottom
+    // summary row
     csvRows.push('');
     csvRows.push([
       'TOTALS',
@@ -192,7 +192,7 @@ export default function ProjectDetail() {
     setTimeout(() => setExportFeedback(null), 2500);
   };
 
-  // 8. Export Ledger to JSON
+  // export json
   const exportToJSON = () => {
     if (rows.length === 0) return;
     const safeProjectName = projectName.replace(/[^a-zA-Z0-9_-]/g, '_');
@@ -230,7 +230,7 @@ export default function ProjectDetail() {
     setTimeout(() => setExportFeedback(null), 2500);
   };
 
-  // Dynamic Health Category
+  // health status
   const getRunwayBadge = () => {
     if (projectTotal === 0) return { label: 'Unbudgeted', color: 'bg-slate-100 text-slate-600 border-slate-200' };
     if (isComplete) return { label: 'Fully Settled', color: 'bg-emerald-50 text-emerald-700 border-emerald-200' };
